@@ -1,7 +1,7 @@
 # =========================================================================
-# Etapa 1: Compilación y empaquetado del proyecto con Maven y Java 8
+# Etapa 1: Compilación y empaquetado del proyecto con Maven y Java 11
 # =========================================================================
-FROM maven:3.8.6-openjdk-8 AS build
+FROM maven:3.8.6-openjdk-11 AS build
 WORKDIR /app
 
 # Copiar el archivo de configuración de dependencias
@@ -17,9 +17,9 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # =========================================================================
-# Etapa 2: Servidor de ejecución usando Apache Tomcat 9 con Java 8
+# Etapa 2: Servidor de ejecución usando Apache Tomcat 9 con Java 11
 # =========================================================================
-FROM tomcat:9.0-jdk8-corretto
+FROM tomcat:9.0-jdk11-corretto
 WORKDIR /usr/local/tomcat
 
 # Railway asigna un puerto dinámico mediante la variable de entorno $PORT.
