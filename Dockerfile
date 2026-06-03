@@ -30,9 +30,8 @@ RUN sed -i 's/port="8080"/port="${port.http}"/g' conf/server.xml
 RUN rm -rf webapps/*
 
 # Copiar el archivo WAR generado en la etapa de compilación.
-# Lo renombramos a ROOT.war para que tu app sea la aplicación principal y responda directamente en "/" 
-# (Evitando que tengas que escribir /Proyecto_final-1.0-SNAPSHOT/GastoAPI en la URL)
-COPY --from=build /app/target/Proyecto_final-1.0-SNAPSHOT.war webapps/ROOT.war
+# ACTUALIZADO: Buscando el nombre generado por tu pom.xml (demo-web-1.0-SNAPSHOT.war)
+COPY --from=build /app/target/demo-web-1.0-SNAPSHOT.war webapps/ROOT.war
 
 # Exponer el puerto al entorno (Railway mapeará esto internamente)
 EXPOSE 8080
