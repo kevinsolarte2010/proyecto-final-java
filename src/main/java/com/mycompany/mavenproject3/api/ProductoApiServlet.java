@@ -17,11 +17,33 @@ public class ProductoApiServlet extends HttpServlet {
 
     // Instanciamos el DAO que es el único que hablará con la base de datos
     private ProductoDAO productoDAO = new ProductoDAO();
+    
+    /**
+     * Método auxiliar para habilitar CORS añadiendo los encabezados necesarios.
+     * Permite peticiones de cualquier origen (*) y define los métodos permitidos.
+     */
+    private void setAccessControlHeaders(HttpServletResponse response) {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    }
+
+    /**
+     * El método doOptions es necesario para responder a las peticiones "preflight"
+     * que hacen los navegadores web antes de hacer un POST, PUT o DELETE con CORS.
+     */
+    @Override
+    protected void doOptions(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        setAccessControlHeaders(response);
+        response.setStatus(HttpServletResponse.SC_OK);
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
             
+        setAccessControlHeaders(response); // Habilitar CORS
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json;charset=UTF-8");
 
@@ -69,6 +91,7 @@ public class ProductoApiServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
             
+        setAccessControlHeaders(response); // Habilitar CORS
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json;charset=UTF-8");
 
@@ -123,6 +146,7 @@ public class ProductoApiServlet extends HttpServlet {
     protected void doPut(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
             
+        setAccessControlHeaders(response); // Habilitar CORS
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json;charset=UTF-8");
 
@@ -178,6 +202,7 @@ public class ProductoApiServlet extends HttpServlet {
     protected void doDelete(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
             
+        setAccessControlHeaders(response); // Habilitar CORS
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json;charset=UTF-8");
 
